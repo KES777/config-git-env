@@ -1,0 +1,48 @@
+# LESSCHARSET=koi8-r for right display in less
+#git config --global user.name "Your Name"
+#git config --global user.email you@example.com
+#git config --global color.diff auto
+#git config --global color.status auto
+#git config --global color.branch auto
+#git config --global core.whitespace "trailing-space,space-before-tab"
+#git config --global apply.whitespace "trailing-space,space-before-tab"
+#git config --global merge.renormalize true
+[user]
+        email = your@mail
+        name = Eugen Konkov
+[core]
+        # editor = "subl -w"
+        quotepath = false
+        pager = less
+#        whitespace = trailing-space,space-before-tab
+[i18n]
+        commitencoding = utf-8
+        logoutputencoding = utf-8
+#[apply]
+#        ignorewhitespace = change
+
+[color]
+        ui = auto
+#	diff = auto
+#	status = auto
+#	branch = auto
+#[branch "*"]
+#    mergeoptions = "ignore-space-change,ignore-space-at-eol"
+[alias]
+        tree        = log --graph --decorate --pretty=oneline --abbrev-commit
+        mine        = log --first-parent
+        iscmerge    = merge -s recursive -Xignore-space-change
+        prb         = pull -v --rebase
+        br          = branch
+        co          = checkout
+        fork-point  = !bash -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-develop}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
+        bd          = !bash -c 'git diff -b -w --ignore-blank-lines `git fork-point`..'
+        bl          = !bash -c 'git log -w -b -p --ignore-blank-lines `git fork-point`..'
+        ffs         = flow feature start
+        ffc         = flow feature checkout
+
+[push]
+	default = simple
+
+[track]
+        repo = ~/.config/git-env

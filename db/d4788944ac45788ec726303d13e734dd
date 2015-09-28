@@ -1,0 +1,52 @@
+export LANGUAGE=en
+export LC_MESSAGES=en_US.UTF-8
+#export LC_TIME=en_US.UTF-8
+
+export PERL_MB_OPT="--install_base \"/home/kes/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=/home/kes/perl5"
+export PERL5LIB='/home/kes/perl5/lib/perl5'
+
+#added by KES
+export LESS='-RFXS -x4'
+export TZ='Europe/Zaporozhye'
+
+
+#Turn off wired ~
+printf "\e[?2004l"
+
+if [ -z "$SSH_CLIENT" ]; then
+	export EDITOR="subl"
+else
+	export EDITOR="rsub --port 52697"
+	export RMATE_PORT="52697"
+fi
+
+alias gn="git-number"
+alias ge="gn -c $EDITOR"
+alias ga="gn add"
+alias gap="EDITOR='$EDITOR -w' gn add -p"
+alias gd="gn -c git diff -b -w --ignore-blank-lines"
+alias gds="gd --staged"
+alias gc="gn -c git checkout"
+alias gcf="git flow feature checkout"
+alias gl="gn -c git log -w -b -p --ignore-blank-lines"
+alias gls="git log --stat"
+alias cm="EDITOR='$EDITOR -w' git commit"
+
+gcd() {
+    test -n "$1" && cd $(dirname $(git list $1))
+}
+
+source ~/.git-completion.bash
+__git_complete gn  _git
+__git_complete ga  _git_add
+__git_complete gap _git_add
+__git_complete gd  _git_diff
+__git_complete gds _git_diff
+__git_complete gc  _git_checkout
+__git_complete gcf _git_checkout
+__git_complete gl  _git_log
+__git_complete gls _git_log
+__git_complete cm  _git_commit
+#added by KES
+
